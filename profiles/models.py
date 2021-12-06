@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 from .utils import get_random_code
 from django.template.defaultfilters import slugify
 
@@ -31,6 +32,7 @@ class profile(models.Model):
                 to_slug = str(self.user)
         self.slug = to_slug
         super().save(*args, **kwargs) 
+
 
 
 STATUS_CHOICES = (

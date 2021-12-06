@@ -1,0 +1,24 @@
+{% extends 'base1.html' %}
+
+{% block content%}
+
+
+
+{% comment %} Form to create post  {% endcomment %}
+<div class="row justify-content-center mt-3">
+    <div class="col-md-5 col-sm-12 ">
+        <h3><strong>Create Your Post</strong></h3>
+    </div>
+</div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 ">
+            <form method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type='submit' value='Save' />
+              </form>
+        </div>
+    </div>
+  
+
+{% endblock content%}

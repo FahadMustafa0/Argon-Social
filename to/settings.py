@@ -39,7 +39,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'profiles',
     'posts',
-
+    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -71,7 +71,7 @@ ROOT_URLCONF = 'to.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR , "tamplates")],
+        'DIRS': [os.path.join(BASE_DIR , "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,10 +151,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR , "static")
 
 ]
+BASE_DIR=Path(__file__).resolve(strict=True).parent.parent
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static_project')
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static_project')
+# ]
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static_project')
@@ -162,11 +165,15 @@ STATICFILES_DIRS = [
 
 # STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CRISPY_TEMPLATE_PACK='bootstrap4'
+
+LOGIN_REDIRECT_URL = 'index'
+ACCOUNT_EMAIL_REQUIRED = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
