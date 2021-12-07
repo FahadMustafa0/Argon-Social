@@ -1,0 +1,156 @@
+{% extends 'base1.html'%}
+{% block title%}
+Profiles
+{% endblock title%}
+
+{% block content%}
+
+  
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  width: 90%; margin: 300px;>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-10 col-sm-12 ">
+                <div class="header">
+                    <h3><strong>Update your Profile</strong></h3>
+                  </div>
+                <div class="image content">
+                    <div class="ui medium image">
+                        <img src="{{obj.avatar.url}}" width="200" height="230">
+                    </div>
+                    <div class="description">
+                        <div class="ui header">Provide some additional/newest info about you </div>
+                
+                    <form action="" method="POST" class="ui form" enctype='multipart/form-data' >
+                        {% csrf_token %}
+                        {{form.as_p}}
+                    </div>
+                </div>
+                <div class="actions">
+                  <button type='submit' class="ui positive right labeled icon button">
+                    Update
+                    <i class="checkmark icon"></i>
+                  </button>
+                  </form>
+                 <div class="container" my=''>
+                     </div>
+                </div>
+
+            </div>
+        </div>
+             
+
+            </div>
+        </div>
+  </div>
+
+
+
+
+
+
+
+
+<!-- MODAL -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <i class="close icon"></i>
+    <div class="header">
+      Update your Profile
+    </div>
+    <div class="image content">
+        <div class="ui medium image">
+            <img src="{{obj.avatar.url}}">
+        </div>
+        <div class="description">
+            <div class="ui header">Provide some additional/newest info about you </div>
+        <form action="" method="POST" class="ui form" enctype='multipart/form-data' >
+            {% csrf_token %}
+            {{form.as_p}}
+        </div>
+    </div>
+    <div class="actions">
+      <button type='submit' class="ui positive right labeled icon button">
+        Update
+        <i class="checkmark icon"></i>
+      </button>
+      </form>
+    </div>
+</div>
+
+<!-- View of profile -->
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-5 col-sm-12 ">
+        {% if confirm %}
+            <div class="ui green message">Your profile has been updated</div>
+        {% endif %}
+        <h3>User Name : {{request.user}}</h3>
+        <div class="ui grid">
+            <div class='row'>
+                <div class='six wide column'>
+                    <img class="ui medium rounded image" width="200" height="230" src={{obj.avatar.url}}>
+                    <div class="row mt-5">
+                        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Update Your Profile</button>
+                    </div>
+                </div>
+
+                <div class="ten wide column">
+                    <table class="ui table">
+                        <tbody>
+                            <tr>
+                                <td>username</td>
+                                <td>{{obj.user}}</td>
+                            </tr>
+                            <tr>
+                                <td>first name</td>
+                                <td>{{obj.first_name}}</td>
+                            </tr>
+                            <tr>
+                                <td>last name</td>
+                                <td>{{obj.last_name}}</td>
+                            </tr>
+                            <tr>
+                                <td>bio</td>
+                                <td>{{obj.bio}}</td>
+                            </tr>
+                            <tr>
+                                <td>country</td>
+                                <td>{{obj.country}}</td>
+                            </tr>
+        
+
+                            <tr>
+                                <td>Friends List</td>
+                                <td>
+                                    <ul>
+                                        {% for friend in obj.get_friends %}
+                                            <li>{{friend}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% comment %} <script type="text/javascript"> 
+     $(document).ready(function(){ 
+        
+    $('#mybtn').click(function(){
+        console.log("clickeeeeeeeeeeedd")
+        $('#mymodal').modal('show');
+    })
+}) 
+</script> {% endcomment %}
+
+{% endblock content%}
+

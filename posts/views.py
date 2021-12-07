@@ -11,8 +11,11 @@ from .forms import PostForm
 def post_create_view(request):
     if request.POST:
         form = PostForm(data=request.POST, files=request.FILES)
+        # form.instance.author = get_author(self.request.user)
         if form.is_valid():
-            form.save()
+            obj = form.save()
+            obj.author = request.user
+            obj.save()
         else:
             print(form.errors)
 

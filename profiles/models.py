@@ -10,13 +10,15 @@ class profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(default="no bio...",max_length=300)
     email = models.EmailField(blank=True,max_length=200)
-    country = models.TextField(blank=True,max_length=200)
+    country = models.TextField(blank=True,max_length=200, default='Pakistan')
     avatar = models.ImageField(default='avatar.png',upload_to='avatars/')
     friends = models.ManyToManyField(User,blank=True,related_name='firends')
     slug = models.SlugField(unique=True , blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
- 
+    
+    def get_friends(self):
+        return self.friends.all()
     def __str__(self):
         return f"{self.user.username}-{self.created.strftime('%d-%m-%Y')}"
 
