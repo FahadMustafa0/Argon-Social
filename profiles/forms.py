@@ -13,7 +13,6 @@ class ProfileForm(forms.ModelForm):
             'email',
             'country',
             'avatar',
-            'friends',
         
             
 

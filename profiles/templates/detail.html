@@ -1,0 +1,70 @@
+{% extends 'base1.html'%}
+{% block title%}
+Profile detail
+{% endblock title%}
+
+{% block content%}
+
+<!-- For  follow the user-->
+
+ <!-- Modal -->
+ <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  width: 90%; margin: 300px;>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+    
+                <h3>By clicking yes you will see all the posts published by  <strong>{{object.first_name}}</strong> </h3>
+            
+              <div class="actions">
+                  <form action="{% url 'profiles:follow_unfollow_view' %}" method='POST'>
+                      {% csrf_token%}
+                  <input type='hidden' name ='profile_pk' value={{object.pk}}>
+                  <button type="submit" class="ui green ok button">
+                      <i class="checkmark icon"></i>
+                      Yes
+                  </button>
+                  </form>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+ <!-- For un follow the user-->
+
+   <div class ="ui grid" style="margin:50px">
+    <div class ="row">
+        <div class="four wide column">
+            <img src="{{object.avatar.url}}" width="200" height="230">
+            <h1>{{object.first_name}}</h1>
+        </div>
+        <hr>
+        {% if follow%}
+         <form action="{% url 'profiles:follow_unfollow_view' %}" method="POST">
+             {% csrf_token%}
+             <input type='hidden' name ='profile_pk' value={{object.pk}}>
+             <button type="submit" class="ui negative button">Unfollow</button>
+         </form>
+         {% else %}
+          <!-- Button trigger modal -->
+            <button type="button" class="ui positive button" data-toggle="modal" data-target="#exampleModal">Follow</button>
+     
+        {% endif %}
+
+        <div class="twelve wide column">
+            {% for post in object.profiles_posts%}
+            <div class="ui segment">
+                {{post.body}}  
+            </div>
+            {% endfor %}
+        </div>
+  <!--it means that we  no specify the name of object for context passing so used object word-->
+ 
+{% endblock content%}
+
+
+

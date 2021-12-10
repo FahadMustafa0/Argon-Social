@@ -1,0 +1,18 @@
+{% extends 'base1.html'%}
+{% block title%}
+Profiles new page
+{% endblock title%}
+{% block content%}
+
+        <h1 > Profiles</h1>
+        {% for profile in profiles%}
+        <div class="ui segment" style="margin: 50px;">
+        {{profile}}
+        <br>
+        <a href={% url 'profiles:profile-detail-view' profile.pk%}>
+        <button type="button" class="btn btn-primary">See Profiles</button>
+        </a>
+        </div>
+    
+{% endfor%}
+{% endblock content%}

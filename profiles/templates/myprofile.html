@@ -13,7 +13,7 @@ Profiles
         <div class="row justify-content-center mt-3">
             <div class="col-md-10 col-sm-12 ">
                 <div class="header">
-                    <h3><strong>Update your Profile</strong></h3>
+                    <h3><strong>Update your Profile </strong></h3>
                   </div>
                 <div class="image content">
                     <div class="ui medium image">
@@ -32,9 +32,9 @@ Profiles
                     Update
                     <i class="checkmark icon"></i>
                   </button>
+                  <br><br>
                   </form>
-                 <div class="container" my=''>
-                     </div>
+                
                 </div>
 
             </div>
@@ -48,35 +48,6 @@ Profiles
 
 
 
-
-
-
-
-<!-- MODAL -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <i class="close icon"></i>
-    <div class="header">
-      Update your Profile
-    </div>
-    <div class="image content">
-        <div class="ui medium image">
-            <img src="{{obj.avatar.url}}">
-        </div>
-        <div class="description">
-            <div class="ui header">Provide some additional/newest info about you </div>
-        <form action="" method="POST" class="ui form" enctype='multipart/form-data' >
-            {% csrf_token %}
-            {{form.as_p}}
-        </div>
-    </div>
-    <div class="actions">
-      <button type='submit' class="ui positive right labeled icon button">
-        Update
-        <i class="checkmark icon"></i>
-      </button>
-      </form>
-    </div>
-</div>
 
 <!-- View of profile -->
   <div class="row justify-content-center mt-3">
@@ -121,16 +92,26 @@ Profiles
         
 
                             <tr>
-                                <td>Friends List</td>
+                                <td>Followers</td>
                                 <td>
                                     <ul>
-                                        {% for friend in obj.get_friends %}
-                                            <li>{{friend}}</li>
+                                        {% for follower in obj.get_followers %}
+                                            <li>{{follower}}</li>
                                         {% endfor %}
                                     </ul>
                                 </td>
                             </tr>
-                            
+                            <tr>
+                                <td>Following</td>
+                                <td>
+                                    <ul>
+                                        {% for followin in obj.get_following %}
+                                            <li>{{followin}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        
                         </tbody>
                     </table>
                 </div>

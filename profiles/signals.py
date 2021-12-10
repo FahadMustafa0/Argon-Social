@@ -10,6 +10,8 @@ def post_save_create_profile(sender, instance, created, **kwargs):
     if created:
         profile.objects.create(user=instance)
 
+
+# this is for relationship currently not using
 @receiver(post_save, sender=Relationship)
 def post_save_add_to_friends(sender, instance, created, **kwargs):
     sender_ = instance.sender
