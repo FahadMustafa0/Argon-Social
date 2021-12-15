@@ -15,7 +15,7 @@ Profile detail
                 <h3>By clicking yes you will see all the posts published by  <strong>{{object.first_name}}</strong> </h3>
             
               <div class="actions">
-                  <form action="{% url 'profiles:follow_unfollow_view' %}" method='POST'>
+                  <form action="{% url 'profiles:post' %}" method='POST'>
                       {% csrf_token%}
                   <input type='hidden' name ='profile_pk' value={{object.pk}}>
                   <button type="submit" class="ui green ok button">
@@ -38,13 +38,20 @@ Profile detail
 
    <div class ="ui grid" style="margin:50px">
     <div class ="row">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="ui green message">{{message}}</div>
+        {% endfor %} 
+        {% endif %}
+
         <div class="four wide column">
             <img src="{{object.avatar.url}}" width="200" height="230">
             <h1>{{object.first_name}}</h1>
         </div>
         <hr>
+        {{follow}}
         {% if follow%}
-         <form action="{% url 'profiles:follow_unfollow_view' %}" method="POST">
+         <form action="{% url 'profiles:post' %}" method="POST">
              {% csrf_token%}
              <input type='hidden' name ='profile_pk' value={{object.pk}}>
              <button type="submit" class="ui negative button">Unfollow</button>

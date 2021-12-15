@@ -1,4 +1,5 @@
 {% extends 'base1.html'%}
+{% load rest_framework %}
 {% block title%}
 Profiles
 {% endblock title%}
@@ -17,14 +18,55 @@ Profiles
                   </div>
                 <div class="image content">
                     <div class="ui medium image">
-                        <img src="{{obj.avatar.url}}" width="200" height="230">
+                        {% for data in obj%}
+                    
+                        <img src="{{data.avatar}}" width="200" height="230">
+                        {% endfor %}
                     </div>
                     <div class="description">
                         <div class="ui header">Provide some additional/newest info about you </div>
                 
-                    <form action="" method="POST" class="ui form" enctype='multipart/form-data' >
+                    <form action="/profileupdateapi/" method="POST" class="ui form" enctype='multipart/form-data' >
                         {% csrf_token %}
-                        {{form.as_p}}
+
+                        <input value='{{request.user.id}}' name="user" id='user'>
+                    
+                        {% render_form serializer %}
+                        
+                        <input type="submit" value="Save">
+                        <!--{{form.as_p}}-->
+                        
+                    <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputFName">First Name</label>
+                              <input type="text" class="form-control" id="fname" placeholder="e.g Muhammad">
+                            </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputLName">Last Name</label>
+                            <input type="text" class="form-control" id="lname" placeholder="e.g Abdullah">
+                            </div>
+                        </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputBio">Bio</label>
+                            <input type="text" class="form-control" id="bio" placeholder="Sample Bio">
+                          </div>
+                          
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputCity">Country</label>
+                              <input type="text" class="form-control" id="country">
+                            </div>
+
+                          </div>
+                          <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">update your picture</label>
+                                <input type="file" class="form-control-file" id="pic">
+                              </div>
+                          </div>
+
+                        
+                    
                     </div>
                 </div>
                 <div class="actions">
@@ -52,42 +94,52 @@ Profiles
 <!-- View of profile -->
   <div class="row justify-content-center mt-3">
     <div class="col-md-5 col-sm-12 ">
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+        
         {% if confirm %}
             <div class="ui green message">Your profile has been updated</div>
         {% endif %}
         <h3>User Name : {{request.user}}</h3>
         <div class="ui grid">
             <div class='row'>
+               
                 <div class='six wide column'>
-                    <img class="ui medium rounded image" width="200" height="230" src={{obj.avatar.url}}>
+                    {% for data in obj%}
+                    <img class="ui medium rounded image" width="200" height="230" src={{data.avatar}}>
+                    {% endfor %}
                     <div class="row mt-5">
                         <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Update Your Profile</button>
                     </div>
                 </div>
-
+                
+                
                 <div class="ten wide column">
                     <table class="ui table">
                         <tbody>
+                            {% for data in obj%}
+                
                             <tr>
                                 <td>username</td>
-                                <td>{{obj.user}}</td>
+                                <td>{{user}}</td>
                             </tr>
                             <tr>
                                 <td>first name</td>
-                                <td>{{obj.first_name}}</td>
+                                <td>{{data.first_name}}</td>
                             </tr>
                             <tr>
                                 <td>last name</td>
-                                <td>{{obj.last_name}}</td>
+                                <td>{{data.last_name}}</td>
                             </tr>
                             <tr>
                                 <td>bio</td>
-                                <td>{{obj.bio}}</td>
+                                <td>{{data.bio}}</td>
                             </tr>
                             <tr>
                                 <td>country</td>
-                                <td>{{obj.country}}</td>
+                                <td>{{data.country}}</td>
                             </tr>
         
 
@@ -95,8 +147,8 @@ Profiles
                                 <td>Followers</td>
                                 <td>
                                     <ul>
-                                        {% for follower in obj.get_followers %}
-                                            <li>{{follower}}</li>
+                                        {% for follower in data.followers %}
+                                            <li>{{follower.username}}</li>
                                         {% endfor %}
                                     </ul>
                                 </td>
@@ -105,13 +157,13 @@ Profiles
                                 <td>Following</td>
                                 <td>
                                     <ul>
-                                        {% for followin in obj.get_following %}
-                                            <li>{{followin}}</li>
+                                        {% for followin in data.following %}
+                                            <li>{{followin.username}}</li>
                                         {% endfor %}
                                     </ul>
                                 </td>
                             </tr>
-                        
+                            {% endfor%}
                         </tbody>
                     </table>
                 </div>
